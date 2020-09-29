@@ -1,10 +1,11 @@
 const router = require('express').Router();
 const { catchErrors } = require('../middlewares')
+const axios = require("axios")
 const {
     getFragment,
     createFragment,
     updateFragment,
-    deleteFragment
+    deleteFragment,
 } = require('../controllers/fragment')
 const {
     getNote,
@@ -28,5 +29,17 @@ router.get('/notes/:noteId', catchErrors(getNote)) //MODAL
 router.post('/notes/:fragmentId', catchErrors(createNote)) //MODAL
 router.put('/notes/:noteId', catchErrors(updateNote)) //MODAL
 router.delete('/notes/:noteId', catchErrors(deleteNote)) //MODAL ANTERIOR
+
+//MEANING CLOUD
+router.post("/summarize/:sentences", async(req, res) => {
+    const { sentences } = req.params
+    const { txt } = req.body
+    const { data } = await axios.post(
+        `https://api.meaningcloud.com/summarization-1.0?key=${process.env.MC}&txt=${encodeURI(
+            txt
+        )}&sentences=${sentences}`
+    )
+    res.send(data)
+})
 
 module.exports = router;

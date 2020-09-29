@@ -1,4 +1,5 @@
 const Fragment = require('../models/Fragment')
+const axios = require("axios")
 
 exports.getFragment = async(req, res) => {
     const fragment = await Fragment.findById(
