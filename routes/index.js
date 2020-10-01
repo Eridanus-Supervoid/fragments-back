@@ -17,6 +17,7 @@ const {
     deleteNote
 } = require('../controllers/note')
 
+
 router.get('/', (req, res, next) => {
     res.status(200).json({ msg: 'Working' });
 });
@@ -54,25 +55,5 @@ router.post("/summarize", async(req, res) => {
     res.send(newFragment)
 })
 
-// router.post("/textToSpeech", async(req, res) => {
-
-//     const { data } = await axios.post(
-//         `https://southcentralus.tts.speech.microsoft.com/cognitiveservices/v1`, {
-//             body: {
-//                 bodyRequestAzure
-//             }
-//         }, {
-//             headers: {
-//                 "Content-type": "application/ssml+xml",
-//                 "Host": "southcentralus.tts.speech.microsoft.com",
-//                 "X-Microsoft-OutputFormat": "audio-16khz-32kbitrate-mono-mp3",
-//                 "Content-Length": "225",
-//                 "Authorization": `Bearer ${accesToken}`,
-//                 "User-Agent": "Fragments"
-//             }
-//         }
-//     )
-//     res.send(data)
-// })
 
 module.exports = router;
