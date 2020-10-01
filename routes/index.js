@@ -18,25 +18,25 @@ const {
 } = require('../controllers/note')
 
 
-router.get('/', (req, res, next) => {
+router.get('api/', (req, res, next) => {
     res.status(200).json({ msg: 'Working' });
 });
 
-router.post('/fragmentsFetch', catchErrors(getFragments))
-router.post('/fragments', catchErrors(createFragment)) //MODAL
-router.get('/fragments/:fragmentId', catchErrors(getFragment))
-router.put('/fragments/:fragmentId', catchErrors(updateFragment)) //MODAL
-router.delete('/fragments/:fragmentId', catchErrors(deleteFragment))
+router.post('api/fragmentsFetch', catchErrors(getFragments))
+router.post('api/fragments', catchErrors(createFragment)) //MODAL
+router.get('api/fragments/:fragmentId', catchErrors(getFragment))
+router.put('api/fragments/:fragmentId', catchErrors(updateFragment)) //MODAL
+router.delete('api/fragments/:fragmentId', catchErrors(deleteFragment))
 
 //TODO:RUTA PARA TODAS LAS NOTAS
-router.get('/notes/:noteId', catchErrors(getNote)) //MODAL
-router.post('/notes/:fragmentId', catchErrors(createNote)) //MODAL
-router.put('/notes/:noteId', catchErrors(updateNote)) //MODAL
-router.delete('/notes/:noteId', catchErrors(deleteNote)) //MODAL ANTERIOR
+router.get('api/notes/:noteId', catchErrors(getNote)) //MODAL
+router.post('api/notes/:fragmentId', catchErrors(createNote)) //MODAL
+router.put('api/notes/:noteId', catchErrors(updateNote)) //MODAL
+router.delete('api/notes/:noteId', catchErrors(deleteNote)) //MODAL ANTERIOR
 
 //MEANING CLOUD
 //TODO:DIVIDIR EN CONTROLADOR
-router.post("/summarize", async(req, res) => {
+router.post("api/summarize", async(req, res) => {
     const { txt, sentences, name, user } = req.body
     const { _id } = user
     const { data } = await axios.post(
