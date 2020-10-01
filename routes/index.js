@@ -1,7 +1,10 @@
 const router = require('express').Router();
 const { catchErrors } = require('../middlewares')
+const Fragment = require('../models/Fragment')
 const axios = require("axios")
+const User = require('../models/User')
 const {
+    getFragments,
     getFragment,
     createFragment,
     updateFragment,
@@ -18,9 +21,9 @@ router.get('/', (req, res, next) => {
     res.status(200).json({ msg: 'Working' });
 });
 
-//TODO:RUTA PARA TODOS LOS FRAGMENTOS
+router.post('/fragmentsFetch', catchErrors(getFragments))
+router.post('/fragments', catchErrors(createFragment)) //MODAL
 router.get('/fragments/:fragmentId', catchErrors(getFragment))
-router.post('/fragments/', catchErrors(createFragment)) //MODAL
 router.put('/fragments/:fragmentId', catchErrors(updateFragment)) //MODAL
 router.delete('/fragments/:fragmentId', catchErrors(deleteFragment))
 
@@ -31,14 +34,25 @@ router.put('/notes/:noteId', catchErrors(updateNote)) //MODAL
 router.delete('/notes/:noteId', catchErrors(deleteNote)) //MODAL ANTERIOR
 
 //MEANING CLOUD
-router.post("/summarize/:sentences", async(req, res) => {
-    const { sentences } = req.params
-    const { txt } = req.body
+//TODO:DIVIDIR EN CONTROLADOR
+router.post("/summarize", async(req, res) => {
+    const { txt, sentences, name, user } = req.body
+    const { _id } = user
     const { data } = await axios.post(
         `https://api.meaningcloud.com/summarization-1.0?key=${process.env.MC}&txt=${encodeURI(
             txt
         )}&sentences=${sentences}`
     )
+
+    const { summary } = data
+
+    const newFragment = await Fragment.create({
+        name: name,
+        summary,
+        userId: _id
+    })
+    await User.findByIdAndUpdate(_id, { $push: { fragmentId: newFragment._id } }, { new: true })
+    console.log(data)
     res.send(data)
 })
 

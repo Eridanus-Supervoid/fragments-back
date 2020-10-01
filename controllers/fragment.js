@@ -1,18 +1,22 @@
 const Fragment = require('../models/Fragment')
-const axios = require("axios")
+const User = require('../models/User')
 
 exports.getFragment = async(req, res) => {
     const fragment = await Fragment.findById(
         req.params.fragmentId
     ).populate('notesId')
+    console.log(fragment)
     res.status(200).json({ fragment })
 }
 
-//TODO:Esto se puede hacer con una especie de getUser y populando.
-// exports.getFragments = async(req, res) => {
-//     const fragments = await Fragment.find()
-//     res.status(200).json({ fragments })
-// }
+exports.getFragments = async(req, res) => {
+    const { userId } = req.body
+    const user = await User.findById(userId).populate('fragmentId')
+    console.log(user)
+    const userFragments = user.fragmentId
+    console.log(userFragments)
+    res.status(200).json({ userFragments })
+}
 
 exports.createFragment = async(req, res) => {
     const { name, summary } = req.body

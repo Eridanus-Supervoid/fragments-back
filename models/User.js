@@ -5,7 +5,11 @@ const userSchema = new Schema({
     email: String,
     name: String,
     facebookId: String,
-    googleId: String
+    googleId: String,
+    fragmentId: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Fragment'
+    }]
 }, {
     timestamps: true,
     versionKey: false
