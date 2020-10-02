@@ -5,16 +5,13 @@ exports.getFragment = async(req, res) => {
     const fragment = await Fragment.findById(
         req.params.fragmentId
     ).populate('noteId')
-    console.log(fragment)
     res.status(200).json({ fragment })
 }
 
 exports.getFragments = async(req, res) => {
     const { userId } = req.body
     const user = await User.findById(userId).populate('fragmentId')
-    console.log(user)
     const userFragments = user.fragmentId
-    console.log(userFragments)
     res.status(200).json({ userFragments })
 }
 

@@ -46,7 +46,6 @@ router.post("/api/summarize", async(req, res) => {
         userId: _id
     })
     await User.findByIdAndUpdate(_id, { $push: { fragmentId: newFragment._id } }, { new: true })
-    console.log(newFragment)
     res.send(newFragment)
 })
 

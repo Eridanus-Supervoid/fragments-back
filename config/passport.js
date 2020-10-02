@@ -49,12 +49,10 @@ passport.use(
 )
 
 passport.serializeUser((user, done) => {
-    console.log(user)
     done(null, user.id)
 })
 passport.deserializeUser(async(id, done) => {
     const user = await User.findById(id)
-    console.log(user)
     done(null, user)
 })
 
