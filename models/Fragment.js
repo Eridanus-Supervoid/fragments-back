@@ -7,10 +7,10 @@ const fragmentSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
-    noteId: {
+    noteId: [{
         type: Schema.Types.ObjectId,
         ref: 'Note'
-    }
+    }]
 }, {
     timestamps: true
 })

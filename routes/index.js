@@ -23,19 +23,15 @@ router.get('/api/', (req, res, next) => {
 });
 
 router.post('/api/fragmentsFetch', catchErrors(getFragments))
-router.post('/api/fragments', catchErrors(createFragment)) //MODAL
+router.post('/api/fragments', catchErrors(createFragment))
 router.get('/api/fragments/:fragmentId', catchErrors(getFragment))
-router.put('/api/fragments/:fragmentId', catchErrors(updateFragment)) //MODAL
+router.put('/api/fragments/:fragmentId', catchErrors(updateFragment))
 router.delete('/api/fragments/:fragmentId', catchErrors(deleteFragment))
 
-//TODO:RUTA PARA TODAS LAS NOTAS
-router.get('/api/notes/:noteId', catchErrors(getNote)) //MODAL
-router.post('/api/notes/:fragmentId', catchErrors(createNote)) //MODAL
-router.put('/api/notes/:noteId', catchErrors(updateNote)) //MODAL
-router.delete('/api/notes/:noteId', catchErrors(deleteNote)) //MODAL ANTERIOR
+router.post('/api/notes', catchErrors(createNote))
+router.put('/api/notes/:noteId', catchErrors(updateNote))
+router.delete('/api/notes/:noteId', catchErrors(deleteNote))
 
-//MEANING CLOUD
-//TODO:DIVIDIR EN CONTROLADOR
 router.post("/api/summarize", async(req, res) => {
     const { txt, sentences, name, user } = req.body
     const { _id } = user

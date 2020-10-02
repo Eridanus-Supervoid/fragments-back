@@ -4,7 +4,7 @@ const User = require('../models/User')
 exports.getFragment = async(req, res) => {
     const fragment = await Fragment.findById(
         req.params.fragmentId
-    ).populate('notesId')
+    ).populate('noteId')
     console.log(fragment)
     res.status(200).json({ fragment })
 }

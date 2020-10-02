@@ -7,7 +7,7 @@ exports.getNote = async(req, res) => {
 }
 
 exports.createNote = async(req, res) => {
-    const { fragmentId } = req.params
+    const { fragmentId } = req.body
     const note = await Note.create({
         ...req.body,
         fragmentId: fragmentId
