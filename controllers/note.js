@@ -25,7 +25,8 @@ exports.updateNote = async(req, res) => {
 }
 
 exports.deleteNote = async(req, res) => {
-    const { fragmentId } = req.params
-    await Note.findByIdAndRemove(fragmentId)
+    const { noteId } = req.params
+    console.log(noteId)
+    await Note.findByIdAndRemove(noteId)
     res.status(200).json({ message: "deleted" })
 }

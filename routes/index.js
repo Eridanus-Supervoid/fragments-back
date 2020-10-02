@@ -11,7 +11,6 @@ const {
     deleteFragment,
 } = require('../controllers/fragment')
 const {
-    getNote,
     createNote,
     updateNote,
     deleteNote
